@@ -1,6 +1,8 @@
 # clAutotest
 
-FIXME: write description
+This is a generic autotesting tool. It can be told how to run tests, what file types to watch for changes, and how it'll recognize a failing test-run.
+
+Once launched, clAutotest will re-run the tests in your project every time a file with the given extension changes. If tests fail, the terminal is colored red. Otherwise, expect a lovely bright green terminal window.
 
 
 ## Requisites
