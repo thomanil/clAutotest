@@ -4,6 +4,11 @@ This is a generic autotesting tool. It can be told how to run tests in any proje
 
 Once launched, clAutotest will re-run the tests in your project every time a file with the given extension changes. If tests fail, the terminal is colored red. Otherwise, expect a lovely bright green terminal window.
 
+EXAMPLE: Succeding tests
+<img src="http://github.com/downloads/thomanil/clAutotest/test-success.jpg" alt="Succeeding tests screenshot" />
+
+EXAMPLE: Failing tests
+<img src="http://github.com/downloads/thomanil/clAutotest/test-failure.jpg" alt="Failing tests screenshot" />
 
 ## Requisites
 
