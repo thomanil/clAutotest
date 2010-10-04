@@ -6,11 +6,16 @@
 ;; 2nd param = filename extension of files to monitor (rb for ruby, clj for clojure, java for Java, etc)
 ;; 3rd-nth param = strings which, if they show up in test output, denote a test failure
 
+(def test-run-command (nth *command-line-args* 0))
+(def watched-filetype (nth *command-line-args* 1))
+(def error-indicators (.split (nth *command-line-args* 2) "%"))
+(def test-run-location (nth *command-line-args* 3))
+
 (println "")
-(println "Will launch tests using the following command: '" (nth *command-line-args* 0) "'")
-(println "Watching *." (nth *command-line-args* 1) "files.")
+(println "Will launch tests using the following command: " test-run-command)
+(println "Watching *." watched-filetype "files.")
 (println "If any of these strings show up in test output we'll consider it a failure: '"
-	 (apply str (interpose "','"(rest *command-line-args*)))
+	 (apply str (interpose "','"  error-indicators))
 	 "'")
 
 (defn cmd-line [command] (sh "bash" :in command))
@@ -30,7 +35,9 @@
 (defn all-files [] (seq (.split (cmd-line watched-files) "\n")))
 (defn file-state [file-path] (cmd-line (str "ls -l -T " file-path)))
 (defn state-of-all-files [] (map #(file-state %) (all-files)))
-(defn run-tests [] (cmd-line (nth *command-line-args* 0))) 
+(defn run-tests []
+  (cmd-line (str "cd " test-run-location ";" test-run-command))) 
+ 
 
 (defn set-console-state [test-result]
   (let [test-status (test-result 0)
@@ -45,8 +52,7 @@
       (visually-indicate-failure))))
 
 (defn exception-or-failure-in-text [result]
-  (let [failure-strings (rest *command-line-args*)
-	failures (map #(.contains result %) failure-strings)]
+  (let [failures (map #(.contains result %) error-indicators)]
     (if (some true? failures)
       :failure
       :success)))
