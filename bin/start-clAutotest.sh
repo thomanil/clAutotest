@@ -8,4 +8,4 @@
 # The 3rd argument is a %-separated list of strings which, if present in your test output, indicates failure (Error, Failure and Exception here)
 # The 4th argument is the root directory of the project you want to test, the dir where command in arg1 is launched from.
 
-java -cp lib/clojure-1.1.0.jar:lib/clojure-contrib-1.1.0.jar:.:classes clojure.main src/clAutotest/core.clj 'rake test' 'rb' 'Error%Exception%Failure' '/Users/thomas/versioncontrolled/github/yascheme'
+java -cp lib/clojure-1.1.0.jar:lib/clojure-contrib-1.1.0.jar:.:classes clojure.main src/clAutotest/core.clj 'rake test' 'clj' '"Error:%SyntaxError%syntax error%Failure:"' '/Users/thomas/versioncontrolled/github/yascheme'

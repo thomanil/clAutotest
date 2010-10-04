@@ -31,7 +31,10 @@
   (cmd-line "osascript -e 'tell application \"Terminal\" to set normal text color of first window to \"black\"' ")
   (cmd-line "osascript -e 'tell application \"Terminal\" to set cursor color of first window to \"white\"' "))
 
-(def watched-files (str "find . -name '*.'" (first *command-line-args*)))
+(def watched-files (str "find " test-run-location " -name '*." watched-filetype "'"))
+
+(println watched-files)
+
 (defn all-files [] (seq (.split (cmd-line watched-files) "\n")))
 (defn file-state [file-path] (cmd-line (str "ls -l -T " file-path)))
 (defn state-of-all-files [] (map #(file-state %) (all-files)))
