@@ -14,7 +14,7 @@ EXAMPLE: Failing tests
 
 The tool currently only works on the OS X Terminal, since it uses osascripts to color the terminal when indicating test status.
 
-Install Leiningen (http://github.com/technomancy/leiningen) if you
+Install [Leiningen](http://github.com/technomancy/leiningen) if you
 don't have it already.
 
 ## Installation
