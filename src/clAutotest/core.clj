@@ -1,8 +1,6 @@
 (ns clAutotest.core
   (:gen-class)
-  (:use clojure.contrib.command-line)
-  (:use clojure.contrib.shell-out)
-  (:require clojure.contrib.shell-out))
+  (:use clojure.contrib.shell-out))
 
 ;; 1st param = command that launches a test. Example: 'rake test', 'lein test', etc.
 ;; 2nd param = filename extension of files to monitor (rb for ruby, clj for clojure, java for Java, etc)
@@ -28,13 +26,11 @@
   (cmd-line "osascript -e 'tell application \"Terminal\" to set normal text color of first window to \"black\"' ")
   (cmd-line "osascript -e 'tell application \"Terminal\" to set cursor color of first window to \"white\"' "))
 
-(def find-watched-files (str "find . -name '*.'" (first *command-line-args*)))
-
-(defn all-files [] (seq (.split (cmd-line find-watched-files) "\n")))
+(def watched-files (str "find . -name '*.'" (first *command-line-args*)))
+(defn all-files [] (seq (.split (cmd-line watched-files) "\n")))
 (defn file-state [file-path] (cmd-line (str "ls -l -T " file-path)))
 (defn state-of-all-files [] (map #(file-state %) (all-files)))
 (defn run-tests [] (cmd-line (nth *command-line-args* 0))) 
-
 
 (defn set-console-state [test-result]
   (let [test-status (test-result 0)
@@ -48,7 +44,6 @@
       (println "FAIL!")
       (visually-indicate-failure))))
 
-
 (defn exception-or-failure-in-text [result]
   (let [failure-strings (rest *command-line-args*)
 	failures (map #(.contains result %) failure-strings)]
@@ -56,23 +51,19 @@
       :failure
       :success)))
 
-
 (defn determine-test-status []
   (println "\n\n\n------------------------------------------------------")
   (println (str "TESTRUN STARTED  " (cmd-line "date")))
   (println "------------------------------------------------------\n\n\n")
-  (let [result (run-tests)]
-    (let [state (exception-or-failure-in-text result)]
-      [state, result] )))
-
+  (let [result (run-tests)
+	state (exception-or-failure-in-text result)]
+    [state, result]))
 
 (defn run-test []
   (visually-indicate-test-running)
   (set-console-state (determine-test-status)))
 
-
-(def monitored-files (ref ()))
-
+(def monitored-files (ref ())) ;Will hold a map with keys = file path, value = time of last file change
 
 (defn files-changed? []
   (let [current-state (apply str (state-of-all-files))
@@ -82,14 +73,13 @@
        (ref-set monitored-files (state-of-all-files)))
       :true)))
 
-
 (defn test-loop []
   (loop []
     (if (files-changed?) (run-test))
     (Thread/sleep 1000);milliseconds
     (recur)))
 
-(test-loop)
+(test-loop) ;Start autotesting!
 
 
 
