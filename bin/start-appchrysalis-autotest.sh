@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Autorun tests in my appchrysalis project
+
+java -cp lib/clojure-1.1.0.jar:lib/clojure-contrib-1.1.0.jar:.:classes clojure.main src/clAutotest/core.clj 'rake test' 'rb' 'Error%Exception%Failure%rake aborted!' '/Users/thomas/versioncontrolled/private/appchrysalis'
