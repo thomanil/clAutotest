@@ -32,6 +32,7 @@ Start autotesting from your project by launching clAutotest.
 Some examples:
 
 clAutotest "rake test" "rb" "Error%Exception" "/Users/thomas/RailsProject"
+
 clAutotest "test.sh" "js" "Error%Exception" "."
 
 The first param is the command that launches your project tests.
