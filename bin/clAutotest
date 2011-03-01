@@ -1,0 +1,8 @@
+#!/bin/bash
+
+#java -cp lib/clojure-1.1.0.jar:lib/clojure-contrib-1.1.0.jar:.:classes clojure.main src/clAutotest/core.clj 'rake test' 'rb' 'Error%Exception%Failure%rake aborted!' '/Users/thomas/versioncontrolled/private/appchrysalis'
+
+CLAUTOTEST_HOME=~/versioncontrolled/public/clAutotest
+echo $CLAUTOTEST_HOME
+java -cp $CLAUTOTEST_HOME/lib/clojure-1.1.0.jar:$CLAUTOTEST_HOME/lib/clojure-contrib-1.1.0.jar:.:classes clojure.main $CLAUTOTEST_HOME/src/clAutotest/core.clj "$1" "$2" "$3" "$4"
+
