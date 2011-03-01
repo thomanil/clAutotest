@@ -35,10 +35,10 @@ clAutotest "rake test" "rb" "Error%Exception" "/Users/thomas/RailsProject"
 
 clAutotest "test.sh" "js" "Error%Exception" "."
 
-The first param is the command that launches your project tests.
-The second param is the file extension of your files (java, js, rb, etc).
-The third param is a %-separated list of strings that occur in the console during a failed test.
-The fourth and final param is the path of your project (or a specific subfolder which contains all the files you want watched).
+- The first param is the command that launches your project tests.
+- The second param is the file extension of your files (java, js, rb, etc).
+- The third param is a %-separated list of strings that occur in the console during a failed test.
+- The fourth and final param is the path of your project (or a specific subfolder which contains all the files you want watched).
 
 clAutotest will monitor all files in that folder with the given file extensions, 
 and relaunch testing once a file is updated.
