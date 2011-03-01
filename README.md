@@ -1,6 +1,6 @@
 # clAutotest
 
-This is a generic autotesting tool. It can be told how to run tests in any project with a command line test launcher, what file types to watch for changes, and how it'll recognize a failed test in the terminal.
+This is a generic, language-agnostic autotesting tool. It can be told how to run tests in any project with a command line test launcher, what file types to watch for changes, and how it'll recognize a failed test in the terminal.
 
 Once launched, clAutotest will re-run the tests in your project every time a file with the given extension changes. If tests fail, the terminal is colored red. Otherwise, expect a lovely bright green terminal window.
 
@@ -19,15 +19,28 @@ don't have it already.
 
 ## Installation
 
-Install project dependencies in root dir by running first 'lein deps'.
+Install project dependencies in root dir of clAutotest by running 'lein deps'.
+
+Tweak the CLAUTOTEST_HOME env variable in bin/clAutotest to match where you place clAutotest.
+
+Put bin/clAutotest in your PATH.
 
 ## Usage
 
-Make a copy of the start-autotest-TEMPLATE.sh script in /bin.
+Start autotesting from your project by launching clAutotest. 
 
-Tweak it to fit your project.
+Some examples:
 
-Launch the script from the root of clAutotest. Example: 'sh bin/start-autotest-MyProject.sh'
+clAutotest "rake test" "rb" "Error%Exception" "/Users/thomas/RailsProject"
+clAutotest "test.sh" "js" "Error%Exception" "."
+
+The first param is the command that launches your project tests.
+The second param is the file extension of your files (java, js, rb, etc).
+The third param is a %-separated list of strings that occur in the console during a failed test.
+The fourth and final param is the path of your project (or a specific subfolder which contains all the files you want watched).
+
+clAutotest will monitor all files in that folder with the given file extensions, 
+and relaunch testing once a file is updated.
 
 ## License
 

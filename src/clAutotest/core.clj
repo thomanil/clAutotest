@@ -83,7 +83,7 @@
 (defn test-loop []
   (loop []
     (if (files-changed?) (run-test))
-    (Thread/sleep 1000);milliseconds
+    (Thread/sleep 300);milliseconds
     (recur)))
 
 (test-loop) ;Start autotesting!
